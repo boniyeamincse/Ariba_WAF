@@ -1,0 +1,172 @@
+<div class="rule-management-content">
+    <h2 class="page-title">Rule Management</h2>
+
+    <!-- Rule Statistics -->
+    <div class="grid-container">
+        <div class="panel">
+            <div class="panel-title">Total Rules</div>
+            <div class="panel-value" id="total-rules">0</div>
+            <div class="panel-subtext">Configured rules</div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title">Active Rules</div>
+            <div class="panel-value" id="active-rules">0</div>
+            <div class="panel-subtext">Currently active</div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title">Rule Conflicts</div>
+            <div class="panel-value" id="rule-conflicts">0</div>
+            <div class="panel-subtext">Needs attention</div>
+        </div>
+    </div>
+
+    <!-- Rule Controls -->
+    <div class="card">
+        <div class="card-title">
+            <span>Rule Management</span>
+            <div>
+                <button class="btn btn-primary btn-sm" id="add-new-rule">
+                    <i class="fas fa-plus"></i> Add Rule
+                </button>
+                <button class="btn btn-secondary btn-sm" id="import-rules">
+                    <i class="fas fa-upload"></i> Import
+                </button>
+                <button class="btn btn-secondary btn-sm" id="export-rules">
+                    <i class="fas fa-download"></i> Export
+                </button>
+            </div>
+        </div>
+
+        <!-- Rule Filters -->
+        <div class="rule-filters">
+            <div class="filter-group">
+                <select class="form-control" id="rule-type-filter">
+                    <option value="all">All Rule Types</option>
+                    <option value="sqli">SQL Injection</option>
+                    <option value="xss">XSS</option>
+                    <option value="rfi">RFI</option>
+                    <option value="lfi">LFI</option>
+                    <option value="custom">Custom</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <select class="form-control" id="rule-status-filter">
+                    <option value="all">All Statuses</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <input type="text" class="form-control" id="rule-search" placeholder="Search rules...">
+            </div>
+        </div>
+    </div>
+
+    <!-- Rules Table -->
+    <div class="card">
+        <div class="card-title">Security Rules</div>
+        <div class="table-container">
+            <table class="table" id="rules-table">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="select-all-rules"></th>
+                        <th>Rule ID</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Pattern</th>
+                        <th>Status</th>
+                        <th>Last Updated</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="rules-table-body">
+                    <!-- Rules will be loaded here -->
+                    <tr>
+                        <td colspan="8" class="text-center">Loading rules...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Rule Editor Modal (will be shown when adding/editing rules) -->
+    <div class="modal" id="rule-editor-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="rule-editor-title">Add New Rule</h3>
+                <button class="modal-close" id="close-rule-editor">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="rule-editor-form">
+                    <div class="form-group">
+                        <label for="rule-name" class="form-label">Rule Name</label>
+                        <input type="text" class="form-control" id="rule-name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rule-type" class="form-label">Rule Type</label>
+                        <select class="form-control" id="rule-type" required>
+                            <option value="sqli">SQL Injection</option>
+                            <option value="xss">XSS</option>
+                            <option value="rfi">RFI</option>
+                            <option value="lfi">LFI</option>
+                            <option value="custom">Custom</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rule-pattern" class="form-label">Pattern</label>
+                        <textarea class="form-control" id="rule-pattern" rows="4" required></textarea>
+                        <small class="form-text">Use regex pattern for matching</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rule-description" class="form-label">Description</label>
+                        <textarea class="form-control" id="rule-description" rows="2"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Status</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="rule-status" value="active" checked> Active</label>
+                            <label><input type="radio" name="rule-status" value="inactive"> Inactive</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Apply To</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="apply-to" value="get" checked> GET</label>
+                            <label><input type="checkbox" name="apply-to" value="post" checked> POST</label>
+                            <label><input type="checkbox" name="apply-to" value="put"> PUT</label>
+                            <label><input type="checkbox" name="apply-to" value="delete"> DELETE</label>
+                            <label><input type="checkbox" name="apply-to" value="all"> All Methods</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancel-rule-editor">Cancel</button>
+                <button type="button" class="btn btn-primary" id="save-rule">Save Rule</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rule Conflict Visualization -->
+    <div class="card" id="rule-conflicts-section" style="display: none;">
+        <div class="card-title">Rule Conflict Analysis</div>
+        <div class="conflict-visualization">
+            <div class="conflict-chart">
+                <canvas id="conflictChart"></canvas>
+            </div>
+            <div class="conflict-details">
+                <h4>Conflicting Rules</h4>
+                <ul id="conflict-list">
+                    <!-- Conflict details will be shown here -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

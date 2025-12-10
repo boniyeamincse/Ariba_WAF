@@ -1,0 +1,142 @@
+<div class="dashboard-content">
+    <!-- Overview Panels -->
+    <div class="overview-panels">
+        <!-- Live Traffic Panel -->
+        <div class="panel">
+            <div class="panel-title">Live Traffic</div>
+            <div class="panel-value" id="live-traffic-value">0</div>
+            <div class="panel-subtext">Requests per minute</div>
+        </div>
+
+        <!-- Blocked Requests Panel -->
+        <div class="panel">
+            <div class="panel-title">Blocked Requests</div>
+            <div class="panel-value" id="blocked-requests-value">0</div>
+            <div class="panel-subtext">Last 24 hours</div>
+        </div>
+
+        <!-- Active Rules Panel -->
+        <div class="panel">
+            <div class="panel-title">Active Rules</div>
+            <div class="panel-value" id="active-rules-value">0</div>
+            <div class="panel-subtext">Security rules active</div>
+        </div>
+
+        <!-- Whitelisted IPs Panel -->
+        <div class="panel">
+            <div class="panel-title">Whitelisted IPs</div>
+            <div class="panel-value" id="whitelisted-ips-value">0</div>
+            <div class="panel-subtext">Allowed IPs</div>
+        </div>
+    </div>
+
+    <!-- Main Charts Section -->
+    <div class="grid-container">
+        <!-- Traffic Monitor Chart -->
+        <div class="chart-container">
+            <div class="chart-title">
+                <span>Live Traffic Monitor</span>
+                <div class="chart-controls">
+                    <button class="btn btn-secondary btn-sm" id="refresh-traffic">Refresh</button>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="trafficChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Attack Types Chart -->
+        <div class="chart-container">
+            <div class="chart-title">
+                <span>Blocked Requests by Type</span>
+                <div class="chart-controls">
+                    <select class="form-control form-control-sm" id="attack-type-timeframe">
+                        <option value="24h">Last 24 Hours</option>
+                        <option value="7d">Last 7 Days</option>
+                        <option value="30d">Last 30 Days</option>
+                    </select>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <canvas id="attackTypesChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Alerts Section -->
+    <div class="card">
+        <div class="card-title">
+            <span>Recent Alerts</span>
+            <div>
+                <button class="btn btn-secondary btn-sm" id="view-all-alerts">View All</button>
+                <button class="btn btn-secondary btn-sm" id="refresh-alerts">Refresh</button>
+            </div>
+        </div>
+        <div class="table-container">
+            <table class="table alerts-table">
+                <thead>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>IP Address</th>
+                        <th>Request Type</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="alerts-table-body">
+                    <!-- Alerts will be loaded here -->
+                    <tr>
+                        <td colspan="5" class="text-center">Loading alerts...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Additional Stats Section -->
+    <div class="grid-container">
+        <!-- Rate Limiting Stats -->
+        <div class="card">
+            <div class="card-title">Rate Limiting Stats</div>
+            <div class="rate-limiting-content">
+                <div class="stat-item">
+                    <div class="stat-label">Top Limited IP</div>
+                    <div class="stat-value" id="top-limited-ip">-</div>
+                </div>
+                <div class="stat-item mt-2">
+                    <div class="stat-label">Requests Blocked</div>
+                    <div class="stat-value" id="rate-limited-blocked">0</div>
+                </div>
+                <div class="stat-item mt-2">
+                    <div class="stat-label">Active Endpoints</div>
+                    <div class="stat-value" id="active-endpoints">0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Health -->
+        <div class="card">
+            <div class="card-title">System Health</div>
+            <div class="system-health-content">
+                <div class="health-item">
+                    <div class="health-label">Uptime</div>
+                    <div class="health-value" id="system-uptime">0 days</div>
+                </div>
+                <div class="health-item mt-2">
+                    <div class="health-label">Memory Usage</div>
+                    <div class="health-value" id="memory-usage">0%</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill progress-fill-blue" style="width: 0%"></div>
+                    </div>
+                </div>
+                <div class="health-item mt-2">
+                    <div class="health-label">CPU Load</div>
+                    <div class="health-value" id="cpu-load">0%</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill progress-fill-green" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

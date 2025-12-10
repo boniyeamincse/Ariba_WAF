@@ -1,0 +1,82 @@
+<div class="live-traffic-content">
+    <h2 class="page-title">Live Traffic Monitor</h2>
+
+    <!-- Real-time Traffic Feed -->
+    <div class="card">
+        <div class="card-title">
+            <span>Real-time Traffic Feed</span>
+            <div>
+                <button class="btn btn-secondary btn-sm" id="pause-feed">Pause</button>
+                <button class="btn btn-secondary btn-sm" id="clear-feed">Clear</button>
+            </div>
+        </div>
+        <div class="traffic-feed" id="traffic-feed">
+            <!-- Traffic items will be added here -->
+        </div>
+    </div>
+
+    <!-- Traffic Statistics -->
+    <div class="grid-container">
+        <div class="card">
+            <div class="card-title">Traffic Statistics</div>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-label">Total Requests</div>
+                    <div class="stat-value" id="total-requests">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Requests/min</div>
+                    <div class="stat-value" id="requests-per-minute">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Peak Traffic</div>
+                    <div class="stat-value" id="peak-traffic">0</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Unique IPs</div>
+                    <div class="stat-value" id="unique-ips">0</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-title">Traffic Distribution</div>
+            <div class="chart-wrapper">
+                <canvas id="trafficDistributionChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Traffic Map -->
+    <div class="card">
+        <div class="card-title">Geographic Traffic Distribution</div>
+        <div class="map-container">
+            <div class="map-placeholder">
+                <i class="fas fa-globe-americas map-icon"></i>
+                <p>Geographic traffic visualization would be displayed here</p>
+                <p class="text-secondary">(Integration with mapping library required)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="card">
+        <div class="card-title">Recent Activity</div>
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>IP Address</th>
+                        <th>Method</th>
+                        <th>Endpoint</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="recent-activity-table">
+                    <!-- Activity will be loaded here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

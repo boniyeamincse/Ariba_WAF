@@ -1,0 +1,308 @@
+<div class="settings-content">
+    <h2 class="page-title">Dashboard Settings</h2>
+
+    <!-- Settings Navigation -->
+    <div class="settings-navigation">
+        <div class="nav-tabs">
+            <button class="nav-tab active" data-tab="general">General</button>
+            <button class="nav-tab" data-tab="security">Security</button>
+            <button class="nav-tab" data-tab="notifications">Notifications</button>
+            <button class="nav-tab" data-tab="appearance">Appearance</button>
+            <button class="nav-tab" data-tab="users">User Management</button>
+        </div>
+    </div>
+
+    <!-- General Settings -->
+    <div class="settings-tab active" id="general-settings">
+        <div class="card">
+            <div class="card-title">General Settings</div>
+            <div class="settings-form">
+                <div class="form-group">
+                    <label for="dashboard-title" class="form-label">Dashboard Title</label>
+                    <input type="text" class="form-control" id="dashboard-title" value="Ariba WAF Dashboard">
+                </div>
+
+                <div class="form-group">
+                    <label for="default-page" class="form-label">Default Landing Page</label>
+                    <select class="form-control" id="default-page">
+                        <option value="dashboard">Dashboard Overview</option>
+                        <option value="live-traffic">Live Traffic</option>
+                        <option value="blocked-requests">Blocked Requests</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="refresh-interval" class="form-label">Data Refresh Interval</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control" id="refresh-interval" value="30">
+                        <span class="input-group-text">seconds</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="date-format" class="form-label">Date Format</label>
+                    <select class="form-control" id="date-format">
+                        <option value="local">Local Format</option>
+                        <option value="iso">ISO 8601</option>
+                        <option value="us">US Format</option>
+                        <option value="european">European Format</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary">
+                    <i class="fas fa-save"></i> Save General Settings
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Security Settings -->
+    <div class="settings-tab" id="security-settings" style="display: none;">
+        <div class="card">
+            <div class="card-title">Security Settings</div>
+            <div class="settings-form">
+                <div class="form-group">
+                    <label for="session-timeout" class="form-label">Session Timeout</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control" id="session-timeout" value="30">
+                        <span class="input-group-text">minutes</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="max-failed-logins" class="form-label">Max Failed Logins</label>
+                    <input type="number" class="form-control" id="max-failed-logins" value="5">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Two-Factor Authentication</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="2fa" value="disabled" checked> Disabled</label>
+                        <label><input type="radio" name="2fa" value="optional"> Optional</label>
+                        <label><input type="radio" name="2fa" value="required"> Required</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password Requirements</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" checked> Minimum 8 characters</label>
+                        <label><input type="checkbox" checked> Require uppercase</label>
+                        <label><input type="checkbox" checked> Require lowercase</label>
+                        <label><input type="checkbox" checked> Require numbers</label>
+                        <label><input type="checkbox"> Require special characters</label>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary">
+                    <i class="fas fa-save"></i> Save Security Settings
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Settings -->
+    <div class="settings-tab" id="notification-settings" style="display: none;">
+        <div class="card">
+            <div class="card-title">Notification Settings</div>
+            <div class="settings-form">
+                <div class="form-group">
+                    <label class="form-label">Notification Methods</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" checked> Dashboard Alerts</label>
+                        <label><input type="checkbox"> Email Notifications</label>
+                        <label><input type="checkbox"> SMS Alerts</label>
+                        <label><input type="checkbox"> Webhook Notifications</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="alert-threshold" class="form-label">Alert Threshold</label>
+                    <select class="form-control" id="alert-threshold">
+                        <option value="low">Low (Minimal alerts)</option>
+                        <option value="medium" selected>Medium (Balanced)</option>
+                        <option value="high">High (All events)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="email-address" class="form-label">Notification Email</label>
+                    <input type="email" class="form-control" id="email-address" placeholder="admin@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="webhook-url" class="form-label">Webhook URL</label>
+                    <input type="url" class="form-control" id="webhook-url" placeholder="https://your-webhook-url.com">
+                </div>
+
+                <button class="btn btn-primary">
+                    <i class="fas fa-save"></i> Save Notification Settings
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Appearance Settings -->
+    <div class="settings-tab" id="appearance-settings" style="display: none;">
+        <div class="card">
+            <div class="card-title">Appearance Settings</div>
+            <div class="settings-form">
+                <div class="form-group">
+                    <label class="form-label">Theme</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="theme" value="dark" checked> Dark Theme</label>
+                        <label><input type="radio" name="theme" value="light"> Light Theme</label>
+                        <label><input type="radio" name="theme" value="system"> System Default</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Accent Color</label>
+                    <div class="color-options">
+                        <label><input type="radio" name="accent-color" value="blue" checked> Blue</label>
+                        <label><input type="radio" name="accent-color" value="green"> Green</label>
+                        <label><input type="radio" name="accent-color" value="purple"> Purple</label>
+                        <label><input type="radio" name="accent-color" value="orange"> Orange</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="font-size" class="form-label">Font Size</label>
+                    <select class="form-control" id="font-size">
+                        <option value="small">Small</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="large">Large</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Animation Effects</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="animations" value="full" checked> Full Animations</label>
+                        <label><input type="radio" name="animations" value="reduced"> Reduced Motion</label>
+                        <label><input type="radio" name="animations" value="none"> No Animations</label>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary">
+                    <i class="fas fa-save"></i> Save Appearance Settings
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Management -->
+    <div class="settings-tab" id="user-settings" style="display: none;">
+        <div class="card">
+            <div class="card-title">
+                <span>User Management</span>
+                <div>
+                    <button class="btn btn-primary btn-sm" id="add-user-btn">
+                        <i class="fas fa-plus"></i> Add User
+                    </button>
+                </div>
+            </div>
+            <div class="table-container">
+                <table class="table" id="users-table">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Last Login</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-table-body">
+                        <tr>
+                            <td>admin</td>
+                            <td>admin@ariba-waf.com</td>
+                            <td><span class="badge badge-success">Administrator</span></td>
+                            <td>2025-12-10 08:30:45</td>
+                            <td><span class="badge badge-success">Active</span></td>
+                            <td>
+                                <button class="btn btn-secondary btn-sm">Edit</button>
+                                <button class="btn btn-danger btn-sm">Disable</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- User Editor Modal -->
+        <div class="modal" id="user-editor-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="user-editor-title">Add New User</h3>
+                    <button class="modal-close" id="close-user-editor">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="user-editor-form">
+                        <div class="form-group">
+                            <label for="user-username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="user-username" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="user-email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="user-email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="user-password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="user-password" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="user-role" class="form-label">Role</label>
+                            <select class="form-control" id="user-role">
+                                <option value="admin">Administrator</option>
+                                <option value="editor">Editor</option>
+                                <option value="viewer">Viewer</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Status</label>
+                            <div class="radio-group">
+                                <label><input type="radio" name="user-status" value="active" checked> Active</label>
+                                <label><input type="radio" name="user-status" value="disabled"> Disabled</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="cancel-user-editor">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="save-user">Save User</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Information -->
+    <div class="card">
+        <div class="card-title">System Information</div>
+        <div class="system-info-grid">
+            <div class="system-info-item">
+                <div class="info-label">Dashboard Version</div>
+                <div class="info-value">1.0.0</div>
+            </div>
+            <div class="system-info-item">
+                <div class="info-label">Last Updated</div>
+                <div class="info-value">December 10, 2025</div>
+            </div>
+            <div class="system-info-item">
+                <div class="info-label">License</div>
+                <div class="info-value">MIT License</div>
+            </div>
+            <div class="system-info-item">
+                <div class="info-label">Documentation</div>
+                <div class="info-value">
+                    <a href="#" class="info-link">View Documentation</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

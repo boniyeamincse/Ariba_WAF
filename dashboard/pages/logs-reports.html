@@ -1,0 +1,196 @@
+<div class="logs-reports-content">
+    <h2 class="page-title">Logs & Reports</h2>
+
+    <!-- Log Statistics -->
+    <div class="grid-container">
+        <div class="panel">
+            <div class="panel-title">Total Logs</div>
+            <div class="panel-value" id="total-logs">0</div>
+            <div class="panel-subtext">All time</div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title">Recent Logs</div>
+            <div class="panel-value" id="recent-logs">0</div>
+            <div class="panel-subtext">Last 24 hours</div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title">Storage Used</div>
+            <div class="panel-value" id="storage-used">0 MB</div>
+            <div class="panel-subtext">Log storage</div>
+        </div>
+    </div>
+
+    <!-- Log Filters -->
+    <div class="card">
+        <div class="card-title">Log Filters</div>
+        <div class="log-filters">
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label class="filter-label">Time Range</label>
+                    <select class="form-control" id="log-time-range">
+                        <option value="1h">Last 1 Hour</option>
+                        <option value="24h" selected>Last 24 Hours</option>
+                        <option value="7d">Last 7 Days</option>
+                        <option value="30d">Last 30 Days</option>
+                        <option value="custom">Custom Range</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">Log Level</label>
+                    <select class="form-control" id="log-level">
+                        <option value="all">All Levels</option>
+                        <option value="info">Info</option>
+                        <option value="warning">Warning</option>
+                        <option value="error">Error</option>
+                        <option value="critical">Critical</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">IP Address</label>
+                    <input type="text" class="form-control" id="log-ip-filter" placeholder="Filter by IP">
+                </div>
+            </div>
+
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label class="filter-label">Request Type</label>
+                    <select class="form-control" id="log-request-type">
+                        <option value="all">All Types</option>
+                        <option value="blocked">Blocked</option>
+                        <option value="allowed">Allowed</option>
+                        <option value="rate-limited">Rate Limited</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label">Endpoint</label>
+                    <input type="text" class="form-control" id="log-endpoint-filter" placeholder="Filter by endpoint">
+                </div>
+
+                <div class="filter-group">
+                    <button class="btn btn-primary" id="apply-filters">
+                        <i class="fas fa-filter"></i> Apply Filters
+                    </button>
+                    <button class="btn btn-secondary" id="reset-filters">
+                        <i class="fas fa-undo"></i> Reset
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Log Table -->
+    <div class="card">
+        <div class="card-title">
+            <span>Log Entries</span>
+            <div>
+                <button class="btn btn-secondary btn-sm" id="refresh-logs">
+                    <i class="fas fa-sync"></i> Refresh
+                </button>
+                <button class="btn btn-secondary btn-sm" id="export-logs-csv">
+                    <i class="fas fa-file-csv"></i> Export CSV
+                </button>
+                <button class="btn btn-secondary btn-sm" id="export-logs-json">
+                    <i class="fas fa-file-code"></i> Export JSON
+                </button>
+            </div>
+        </div>
+        <div class="table-container">
+            <table class="table" id="logs-table">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="select-all-logs"></th>
+                        <th>Timestamp</th>
+                        <th>Level</th>
+                        <th>IP Address</th>
+                        <th>Request</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody id="logs-table-body">
+                    <!-- Log entries will be loaded here -->
+                    <tr>
+                        <td colspan="8" class="text-center">Loading log entries...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-pagination">
+            <div class="pagination-info">
+                Showing <span id="log-showing">0</span> of <span id="log-total">0</span> entries
+            </div>
+            <div class="pagination-controls">
+                <button class="btn btn-secondary btn-sm" id="prev-page" disabled>
+                    <i class="fas fa-chevron-left"></i> Previous
+                </button>
+                <span class="page-info">Page <span id="current-page">1</span> of <span id="total-pages">1</span></span>
+                <button class="btn btn-secondary btn-sm" id="next-page" disabled>
+                    <i class="fas fa-chevron-right"></i> Next
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Log Statistics -->
+    <div class="grid-container">
+        <div class="chart-container">
+            <div class="chart-title">Logs by Level</div>
+            <div class="chart-wrapper">
+                <canvas id="logsByLevelChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <div class="chart-title">Logs Timeline</div>
+            <div class="chart-wrapper">
+                <canvas id="logsTimelineChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Report Generation -->
+    <div class="card">
+        <div class="card-title">Generate Report</div>
+        <div class="report-generator">
+            <div class="form-group">
+                <label for="report-type" class="form-label">Report Type</label>
+                <select class="form-control" id="report-type">
+                    <option value="security">Security Summary</option>
+                    <option value="traffic">Traffic Analysis</option>
+                    <option value="performance">Performance Report</option>
+                    <option value="custom">Custom Report</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="report-period" class="form-label">Time Period</label>
+                <select class="form-control" id="report-period">
+                    <option value="24h">Last 24 Hours</option>
+                    <option value="7d">Last 7 Days</option>
+                    <option value="30d">Last 30 Days</option>
+                    <option value="custom">Custom Period</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="report-format" class="form-label">Format</label>
+                <select class="form-control" id="report-format">
+                    <option value="pdf">PDF</option>
+                    <option value="csv">CSV</option>
+                    <option value="json">JSON</option>
+                    <option value="excel">Excel</option>
+                </select>
+            </div>
+
+            <button class="btn btn-primary" id="generate-report">
+                <i class="fas fa-file-pdf"></i> Generate Report
+            </button>
+        </div>
+    </div>
+</div>

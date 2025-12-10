@@ -1,0 +1,200 @@
+<div class="rate-limiting-content">
+    <h2 class="page-title">Rate Limiting Settings</h2>
+
+    <!-- Rate Limiting Statistics -->
+    <div class="grid-container">
+        <div class="panel">
+            <div class="panel-title">Active Limits</div>
+            <div class="panel-value" id="active-limits">0</div>
+            <div class="panel-subtext">Currently active</div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title">Requests Blocked</div>
+            <div class="panel-value" id="rate-limited-blocked">0</div>
+            <div class="panel-subtext">Last 24 hours</div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title">Top Limited IP</div>
+            <div class="panel-value" id="top-limited-ip">-</div>
+            <div class="panel-subtext">Most limited IP</div>
+        </div>
+    </div>
+
+    <!-- Global Rate Limiting Settings -->
+    <div class="card">
+        <div class="card-title">Global Rate Limiting Settings</div>
+        <div class="rate-limiting-form">
+            <div class="form-group">
+                <label for="global-requests" class="form-label">Requests per IP</label>
+                <div class="input-group">
+                    <input type="number" class="form-control" id="global-requests" value="100" min="10" max="10000">
+                    <span class="input-group-text">requests</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="global-time-window" class="form-label">Time Window</label>
+                <select class="form-control" id="global-time-window">
+                    <option value="minute">Per Minute</option>
+                    <option value="hour" selected>Per Hour</option>
+                    <option value="day">Per Day</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="global-action" class="form-label">Action When Exceeded</label>
+                <select class="form-control" id="global-action">
+                    <option value="block">Block Request</option>
+                    <option value="delay">Delay Response</option>
+                    <option value="log">Log Only</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="global-response" class="form-label">Response Code</label>
+                <select class="form-control" id="global-response">
+                    <option value="429" selected>429 Too Many Requests</option>
+                    <option value="403">403 Forbidden</option>
+                    <option value="503">503 Service Unavailable</option>
+                </select>
+            </div>
+
+            <button class="btn btn-primary" id="save-global-settings">
+                <i class="fas fa-save"></i> Save Global Settings
+            </button>
+        </div>
+    </div>
+
+    <!-- Endpoint-Specific Rate Limiting -->
+    <div class="card">
+        <div class="card-title">
+            <span>Endpoint-Specific Rate Limiting</span>
+            <div>
+                <button class="btn btn-primary btn-sm" id="add-endpoint-limit">
+                    <i class="fas fa-plus"></i> Add Endpoint
+                </button>
+            </div>
+        </div>
+        <div class="table-container">
+            <table class="table" id="endpoint-rate-limiting-table">
+                <thead>
+                    <tr>
+                        <th>Endpoint</th>
+                        <th>Method</th>
+                        <th>Requests</th>
+                        <th>Time Window</th>
+                        <th>Action</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="endpoint-rate-limiting-table-body">
+                    <!-- Endpoint rate limits will be loaded here -->
+                    <tr>
+                        <td colspan="7" class="text-center">No endpoint-specific limits configured</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Rate Limiting Statistics -->
+    <div class="grid-container">
+        <div class="chart-container">
+            <div class="chart-title">Rate Limiting Activity</div>
+            <div class="chart-wrapper">
+                <canvas id="rateLimitingActivityChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <div class="chart-title">Top Limited Endpoints</div>
+            <div class="chart-wrapper">
+                <canvas id="topLimitedEndpointsChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Rate Limiting Events -->
+    <div class="card">
+        <div class="card-title">Recent Rate Limiting Events</div>
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>IP Address</th>
+                        <th>Endpoint</th>
+                        <th>Requests</th>
+                        <th>Action</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="rate-limiting-events">
+                    <!-- Rate limiting events will be loaded here -->
+                    <tr>
+                        <td colspan="6" class="text-center">No recent rate limiting events</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Endpoint Editor Modal -->
+    <div class="modal" id="endpoint-editor-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="endpoint-editor-title">Add Endpoint Rate Limit</h3>
+                <button class="modal-close" id="close-endpoint-editor">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="endpoint-editor-form">
+                    <div class="form-group">
+                        <label for="endpoint-path" class="form-label">Endpoint Path</label>
+                        <input type="text" class="form-control" id="endpoint-path" placeholder="e.g., /api/*" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="endpoint-method" class="form-label">HTTP Method</label>
+                        <select class="form-control" id="endpoint-method">
+                            <option value="all">All Methods</option>
+                            <option value="GET">GET</option>
+                            <option value="POST">POST</option>
+                            <option value="PUT">PUT</option>
+                            <option value="DELETE">DELETE</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="endpoint-requests" class="form-label">Requests per IP</label>
+                        <input type="number" class="form-control" id="endpoint-requests" value="50" min="1" max="1000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="endpoint-time-window" class="form-label">Time Window</label>
+                        <select class="form-control" id="endpoint-time-window">
+                            <option value="minute">Per Minute</option>
+                            <option value="hour" selected>Per Hour</option>
+                            <option value="day">Per Day</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="endpoint-action" class="form-label">Action When Exceeded</label>
+                        <select class="form-control" id="endpoint-action">
+                            <option value="block">Block Request</option>
+                            <option value="delay">Delay Response</option>
+                            <option value="log">Log Only</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancel-endpoint-editor">Cancel</button>
+                <button type="button" class="btn btn-primary" id="save-endpoint-limit">Save Endpoint</button>
+            </div>
+        </div>
+    </div>
+</div>

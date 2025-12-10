@@ -1,0 +1,147 @@
+<div class="ip-management-content">
+    <h2 class="page-title">IP Management</h2>
+
+    <!-- IP Statistics -->
+    <div class="grid-container">
+        <div class="panel">
+            <div class="panel-title">Whitelisted IPs</div>
+            <div class="panel-value" id="whitelisted-count">0</div>
+            <div class="panel-subtext">Allowed IPs</div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title">Blacklisted IPs</div>
+            <div class="panel-value" id="blacklisted-count">0</div>
+            <div class="panel-subtext">Blocked IPs</div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-title">Total Unique IPs</div>
+            <div class="panel-value" id="unique-ips-count">0</div>
+            <div class="panel-subtext">Seen in last 24h</div>
+        </div>
+    </div>
+
+    <!-- IP Management Controls -->
+    <div class="card">
+        <div class="card-title">
+            <span>IP Management</span>
+            <div>
+                <button class="btn btn-primary btn-sm" id="add-ip-btn">
+                    <i class="fas fa-plus"></i> Add IP
+                </button>
+                <button class="btn btn-secondary btn-sm" id="import-ips-btn">
+                    <i class="fas fa-upload"></i> Import
+                </button>
+                <button class="btn btn-secondary btn-sm" id="export-ips-btn">
+                    <i class="fas fa-download"></i> Export
+                </button>
+            </div>
+        </div>
+
+        <!-- IP Filters -->
+        <div class="ip-filters">
+            <div class="filter-group">
+                <select class="form-control" id="ip-list-filter">
+                    <option value="whitelist">Whitelist</option>
+                    <option value="blacklist">Blacklist</option>
+                    <option value="all">All IPs</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <input type="text" class="form-control" id="ip-search" placeholder="Search IPs...">
+            </div>
+        </div>
+    </div>
+
+    <!-- IP Lists -->
+    <div class="card">
+        <div class="card-title">IP Address Management</div>
+        <div class="table-container">
+            <table class="table" id="ip-management-table">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="select-all-ips"></th>
+                        <th>IP Address</th>
+                        <th>Type</th>
+                        <th>Country</th>
+                        <th>Added On</th>
+                        <th>Last Activity</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="ip-management-table-body">
+                    <!-- IP addresses will be loaded here -->
+                    <tr>
+                        <td colspan="8" class="text-center">Loading IP management data...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- IP Statistics by Country -->
+    <div class="card">
+        <div class="card-title">IP Distribution by Country</div>
+        <div class="chart-wrapper">
+            <canvas id="ipCountryChart"></canvas>
+        </div>
+    </div>
+
+    <!-- IP Editor Modal -->
+    <div class="modal" id="ip-editor-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="ip-editor-title">Add IP Address</h3>
+                <button class="modal-close" id="close-ip-editor">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="ip-editor-form">
+                    <div class="form-group">
+                        <label for="ip-address" class="form-label">IP Address</label>
+                        <input type="text" class="form-control" id="ip-address" placeholder="e.g., 192.168.1.1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ip-type" class="form-label">IP Type</label>
+                        <select class="form-control" id="ip-type" required>
+                            <option value="whitelist">Whitelist</option>
+                            <option value="blacklist">Blacklist</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ip-description" class="form-label">Description</label>
+                        <textarea class="form-control" id="ip-description" rows="2" placeholder="Reason for adding this IP"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ip-country" class="form-label">Country</label>
+                        <input type="text" class="form-control" id="ip-country" placeholder="Country (optional)">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Expiration</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="ip-expiration" value="never" checked> Never</label>
+                            <label><input type="radio" name="ip-expiration" value="1h"> 1 Hour</label>
+                            <label><input type="radio" name="ip-expiration" value="24h"> 24 Hours</label>
+                            <label><input type="radio" name="ip-expiration" value="7d"> 7 Days</label>
+                            <label><input type="radio" name="ip-expiration" value="custom"> Custom</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="custom-expiration-group" style="display: none;">
+                        <label for="custom-expiration" class="form-label">Custom Expiration Date</label>
+                        <input type="datetime-local" class="form-control" id="custom-expiration">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="cancel-ip-editor">Cancel</button>
+                <button type="button" class="btn btn-primary" id="save-ip">Save IP</button>
+            </div>
+        </div>
+    </div>
+</div>

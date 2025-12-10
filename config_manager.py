@@ -160,6 +160,31 @@ class ConfigManager:
                     }
                 }
             },
+                },
+                'authentication': {
+                    'enabled': True,
+                    'bcrypt_rounds': 12,
+                    'min_password_length': 12,
+                    'max_password_length': 128,
+                    'require_uppercase': True,
+                    'require_lowercase': True,
+                    'require_digits': True,
+                    'require_special': True,
+                    'jwt_secret_key': 'default-secret-key-change-me-in-production',
+                    'jwt_algorithm': 'HS256',
+                    'jwt_issuer': 'ariba-waf',
+                    'jwt_audience': 'ariba-waf-client',
+                    'access_token_expiration_minutes': 15,
+                    'refresh_token_expiration_days': 7,
+                    'session_expiration_days': 7,
+                    'max_concurrent_sessions': 5,
+                    'max_failed_attempts': 5,
+                    'account_lockout_duration_minutes': 30,
+                    'enable_password_strength_validation': True,
+                    'enable_rate_limiting': True,
+                    'enable_ip_filtering': True,
+                    'enable_audit_logging': True
+                },
             'logging': {
                 'log_level': LogLevel.INFO.value,
                 'log_file': 'config_manager.log',

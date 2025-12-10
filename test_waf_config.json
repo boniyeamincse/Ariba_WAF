@@ -1,0 +1,168 @@
+{
+  "rules": {
+    "sqli": {
+      "enabled": true,
+      "severity": "medium",
+      "patterns": [
+        "\\b(SELECT|INSERT|UPDATE|DELETE|DROP|ALTER|CREATE|EXEC|UNION|OR\\s+1=1)\\b",
+        "\\b(SELECT\\s+\\*.*FROM|INSERT\\s+INTO.*VALUES)\\b",
+        "\\b(EXEC\\s+sp_|xp_)\\b",
+        "\\b(OR\\s+[0-9]+=[0-9]+|AND\\s+[0-9]+=[0-9]+)\\b",
+        "\\b(BENCHMARK|SLEEP|LOAD_FILE)\\b"
+      ],
+      "sqli_4_1765342656": {
+        "enabled": true,
+        "severity": "high",
+        "description": "Advanced SQL injection patterns",
+        "patterns": [
+          "\\b(SELECT\\s+\\*.*FROM\\s+users)\\b",
+          "\\b(UNION\\s+SELECT\\s+password)\\b"
+        ]
+      }
+    },
+    "xss": {
+      "enabled": true,
+      "severity": "medium",
+      "patterns": [
+        "<script[^>]*>.*?</script>",
+        "on\\w+\\s*=",
+        "javascript:",
+        "eval\\s*\\(",
+        "<[^>]+>",
+        "document\\.cookie",
+        "window\\.location",
+        "alert\\s*\\("
+      ],
+      "xss_4_1765342656": {
+        "enabled": true,
+        "severity": "medium",
+        "description": "Basic XSS protection",
+        "patterns": [
+          "<script[^>]*>.*?</script>",
+          "on\\w+\\s*=.*?javascript:"
+        ]
+      }
+    },
+    "ip_filtering": {
+      "enabled": true,
+      "whitelist": [],
+      "blacklist": [],
+      "default_action": "allow"
+    },
+    "rate_limiting": {
+      "enabled": true,
+      "global": {
+        "capacity": 1000,
+        "refill_rate": 100,
+        "refill_interval": 1.0
+      },
+      "ip": {
+        "capacity": 100,
+        "refill_rate": 10,
+        "refill_interval": 1.0
+      },
+      "endpoint": {
+        "capacity": 50,
+        "refill_rate": 5,
+        "refill_interval": 1.0
+      },
+      "ip_endpoint": {
+        "capacity": 20,
+        "refill_rate": 2,
+        "refill_interval": 1.0
+      }
+    },
+    "ip_whitelist": {
+      "ip_whitelist_1_1765342656": {
+        "enabled": true,
+        "description": "Trusted internal networks",
+        "ips": [
+          "192.168.1.0/24",
+          "10.0.0.1"
+        ]
+      }
+    },
+    "ip_blacklist": {
+      "ip_blacklist_1_1765342656": {
+        "enabled": true,
+        "description": "Known malicious IPs",
+        "ips": [
+          "192.168.2.100",
+          "8.8.8.8"
+        ]
+      }
+    }
+  },
+  "rule_history": [
+    {
+      "timestamp": "2025-12-10T10:57:36.702207",
+      "action": "add",
+      "rule_type": "sqli",
+      "rule_id": "sqli_4_1765342656",
+      "new_data": {
+        "enabled": true,
+        "severity": "high",
+        "description": "Advanced SQL injection patterns",
+        "patterns": [
+          "\\b(SELECT\\s+\\*.*FROM\\s+users)\\b",
+          "\\b(UNION\\s+SELECT\\s+password)\\b"
+        ]
+      },
+      "old_data": null,
+      "user": "system"
+    },
+    {
+      "timestamp": "2025-12-10T10:57:36.703709",
+      "action": "add",
+      "rule_type": "xss",
+      "rule_id": "xss_4_1765342656",
+      "new_data": {
+        "enabled": true,
+        "severity": "medium",
+        "description": "Basic XSS protection",
+        "patterns": [
+          "<script[^>]*>.*?</script>",
+          "on\\w+\\s*=.*?javascript:"
+        ]
+      },
+      "old_data": null,
+      "user": "system"
+    },
+    {
+      "timestamp": "2025-12-10T10:57:36.704867",
+      "action": "add",
+      "rule_type": "ip_whitelist",
+      "rule_id": "ip_whitelist_1_1765342656",
+      "new_data": {
+        "enabled": true,
+        "description": "Trusted internal networks",
+        "ips": [
+          "192.168.1.0/24",
+          "10.0.0.1"
+        ]
+      },
+      "old_data": null,
+      "user": "system"
+    },
+    {
+      "timestamp": "2025-12-10T10:57:36.706012",
+      "action": "add",
+      "rule_type": "ip_blacklist",
+      "rule_id": "ip_blacklist_1_1765342656",
+      "new_data": {
+        "enabled": true,
+        "description": "Known malicious IPs",
+        "ips": [
+          "192.168.2.100",
+          "8.8.8.8"
+        ]
+      },
+      "old_data": null,
+      "user": "system"
+    }
+  ],
+  "last_updated": "2025-12-10T10:57:36.706016",
+  "config_version": "1.0",
+  "generated_by": "Ariba WAF ConfigManager",
+  "generated_at": "2025-12-10T10:57:36.708375"
+}

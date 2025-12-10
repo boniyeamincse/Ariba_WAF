@@ -1,0 +1,1 @@
+[2025-12-10 10:31:40.555108] [CRITICAL] [LOGGING_ERROR] Failed to log with level INFO: 'NoneType' object has no attribute 'info'
